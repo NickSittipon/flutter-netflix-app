@@ -2,17 +2,20 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/common/helper/navigation/app_navigation.dart';
 import 'package:movie_app/core/config/theme/app_colors.dart';
-import 'package:movie_app/presentation/auth/pages/signup.dart';
+import 'package:movie_app/data/auth/models/signup_req_param.dart';
+import 'package:movie_app/data/auth/repositories/auth.dart';
+import 'package:movie_app/data/auth/sources/auth_api_service.dart';
+import 'package:movie_app/domain/auth/usecase/signup.dart';
+import 'package:movie_app/presentation/auth/pages/signin.dart';
+
 import 'package:reactive_button/reactive_button.dart';
 
-class SigninPage extends StatefulWidget {
-  const SigninPage({super.key});
+class SignupPage extends StatelessWidget {
+  SignupPage({super.key});
 
-  @override
-  State<SigninPage> createState() => _SigninPageState();
-}
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,7 @@ class _SigninPageState extends State<SigninPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _signinText(),
+            _signupText(),
             SizedBox(height: 30),
             _emialField(),
             SizedBox(height: 30),
@@ -30,16 +33,16 @@ class _SigninPageState extends State<SigninPage> {
             SizedBox(height: 60),
             _signinButton(),
             SizedBox(height: 20),
-            _signupText(context),
+            _signinText(context),
           ],
         )
       ), 
     );
   }
 
-  Widget _signinText(){
+  Widget _signupText(){
     return Text(
-      'Sign In',
+      'Sign Up',
       style: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
@@ -49,7 +52,8 @@ class _SigninPageState extends State<SigninPage> {
 
   Widget _emialField() {
     return TextField(
-      decoration: InputDecoration(
+      controller: _emailController,
+      decoration: const InputDecoration(
         hintText: 'Email',
       ),
     );
@@ -57,6 +61,7 @@ class _SigninPageState extends State<SigninPage> {
 
   Widget _passwordField() {
     return TextField(
+      controller: _passwordController,
       decoration: InputDecoration(
         hintText: 'Password',
       ),
@@ -67,26 +72,36 @@ class _SigninPageState extends State<SigninPage> {
     return ReactiveButton(
       title: 'Sign In',
       activeColor: AppColors.primary,
-      onPressed: () async {},
+      onPressed: () async {
+        SignupUsecase(
+          authRepository : AuthRepositoryImp(
+            authApiService : AuthApiServiceImpl()
+            )
+        ).call(
+          params: SignupReqParams(
+            email: _emailController.text, 
+            password: _passwordController.text)
+        );
+      },
       onSuccess: (){}, 
       onFailure: (error) {},
     );
   }
 
-    Widget _signupText(BuildContext context) {
+    Widget _signinText(BuildContext context) {
       return Text.rich(
         TextSpan(
           children: [
             TextSpan(
-              text: "Don't have an account?",
+              text: "Do have an account?",
             ),
             TextSpan(
-              text: ' Sign Up',
+              text: ' Sign In',
               style: TextStyle(
                 color: Colors.blue,
               ),
               recognizer: TapGestureRecognizer()..onTap = (){
-                AppNavigator.push(context, SignupPage());
+                AppNavigator.push(context, const SigninPage());
               }
             )
           ]
