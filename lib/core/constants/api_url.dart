@@ -1,6 +1,6 @@
 class ApiUrl {
 
-  static const baseURL = 'http://172.20.10.2:/'; 
+  static const baseURL = 'http://172.20.10.2:5001/'; 
   static const apiV = 'api/v1/';
   
   static const signup = '${apiV}auth/signup';

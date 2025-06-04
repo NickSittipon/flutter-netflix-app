@@ -1,18 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/common/helper/message/display_message.dart';
 import 'package:movie_app/common/helper/navigation/app_navigation.dart';
 import 'package:movie_app/core/config/theme/app_colors.dart';
+import 'package:movie_app/data/auth/models/signin_req_params.dart';
+import 'package:movie_app/domain/auth/usecase/signin.dart';
 import 'package:movie_app/presentation/auth/pages/signup.dart';
+import 'package:movie_app/presentation/home/pages/home.dart';
+import 'package:movie_app/service_locator.dart';
 import 'package:reactive_button/reactive_button.dart';
 
-class SigninPage extends StatefulWidget {
-  const SigninPage({super.key});
+class SigninPage extends StatelessWidget {
+  SigninPage({super.key});
 
-  @override
-  State<SigninPage> createState() => _SigninPageState();
-}
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +31,7 @@ class _SigninPageState extends State<SigninPage> {
             SizedBox(height: 30),
             _passwordField(),
             SizedBox(height: 60),
-            _signinButton(),
+            _signinButton(context),
             SizedBox(height: 20),
             _signupText(context),
           ],
@@ -49,6 +52,7 @@ class _SigninPageState extends State<SigninPage> {
 
   Widget _emialField() {
     return TextField(
+      controller: _emailController,
       decoration: InputDecoration(
         hintText: 'Email',
       ),
@@ -57,19 +61,29 @@ class _SigninPageState extends State<SigninPage> {
 
   Widget _passwordField() {
     return TextField(
+      controller: _passwordController,
       decoration: InputDecoration(
         hintText: 'Password',
       ),
     ); 
   }
 
-  Widget _signinButton() {
+  Widget _signinButton(BuildContext context) {
     return ReactiveButton(
       title: 'Sign In',
       activeColor: AppColors.primary,
-      onPressed: () async {},
-      onSuccess: (){}, 
-      onFailure: (error) {},
+      onPressed: () async => sl<SigninUseCase>().call(
+        params: SigninReqParams(
+          email: _emailController.text,
+          password: _passwordController.text,
+        ),
+      ),
+      onSuccess: (){
+        AppNavigator.pushAndRemove(context, const HomePage());
+      }, 
+      onFailure: (error) {
+        DisplayMessage.errorMessage(error, context);
+      },
     );
   }
 

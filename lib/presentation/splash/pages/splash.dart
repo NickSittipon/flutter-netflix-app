@@ -18,7 +18,7 @@ class SplashPage extends StatelessWidget {
           if (state is UnAuthenticated) {
             AppNavigator.pushReplacement(
               context,
-              const SigninPage(),
+              SigninPage(),
             );
 
           }
