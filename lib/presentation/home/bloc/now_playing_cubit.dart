@@ -3,8 +3,8 @@ import 'package:movie_app/domain/movie/usecase/get_now_playing_movies.dart';
 import 'package:movie_app/presentation/home/bloc/now_playing_state.dart';
 import 'package:movie_app/service_locator.dart';
 
-class NowPlayingCubit extends Cubit<NowPlayingState> {
-  NowPlayingCubit() : super(NowPlayingMoviesLoading());
+class RecommendationMoviesCubit extends Cubit<NowPlayingState> {
+  RecommendationMoviesCubit() : super(NowPlayingMoviesLoading());
 
 
   void getNowPlayingMovies() async {
@@ -22,4 +22,6 @@ class NowPlayingCubit extends Cubit<NowPlayingState> {
       }
     );
   }
+
+  getRecommendationMovies() {}
 }

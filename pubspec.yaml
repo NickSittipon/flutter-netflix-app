@@ -23,6 +23,9 @@ dependencies:
   shared_preferences:
   flutter_svg:
   fan_carousel_image_slider: 
+  chewie:
+  video_player:
+  youtube_player_flutter: 9.0.0
 
 
 dev_dependencies:

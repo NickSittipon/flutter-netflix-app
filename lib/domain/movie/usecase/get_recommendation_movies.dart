@@ -3,11 +3,11 @@ import 'package:movie_app/core/usecase/usecase.dart';
 import 'package:movie_app/domain/movie/repositories/movie.dart';
 import 'package:movie_app/service_locator.dart';
 
-class GetNowPlayingMoviesUseCase extends UseCase<Either, dynamic>{
-
+class GetRecommendationMoviesUseCase extends UseCase<Either,int> {
+  
   @override
-  Future<Either> call({ params}) async{
-    return await sl<MovieRepository>().getNowPlayingMovies();
+  Future<Either> call({int ? params}) async {
+    return await sl<MovieRepository>().getRecommendationMovies(params!);
   }
   
 }
