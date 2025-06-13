@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/common/bloc/generic_data_cubit.dart';
+import 'package:movie_app/common/bloc/generic_data_state.dart';
 import 'package:movie_app/common/widgets/movie/movie_card.dart';
-import 'package:movie_app/presentation/watch/bloc/recommendation_movies_cubit.dart';
-import 'package:movie_app/presentation/watch/bloc/recommendation_movies_state.dart';
+import 'package:movie_app/domain/movie/entities/movie.dart';
+import 'package:movie_app/domain/movie/usecase/get_recommendation_movies.dart';
+import 'package:movie_app/service_locator.dart';
 
 
 class RecommendationMovies extends StatelessWidget {
@@ -12,14 +15,14 @@ class RecommendationMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SimilarMoviesCubit()..getRecommendationMovies(movieId),
-      child: BlocBuilder<SimilarMoviesCubit, RecommendationMoviesState>(
+      create: (context) => GenericDataCubit()..getData<List<MovieEntity>>(sl<GetRecommendationMoviesUseCase>(),params: movieId),
+      child: BlocBuilder<GenericDataCubit, GenericDataState>(
         builder: (context, state) {
-          if (state is RecommendationMoviesLoading) {
+          if (state is DataLoading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state is RecommendationMoviesLoaded) {
+          if (state is DataLoaded) {
             return  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -37,17 +40,17 @@ class RecommendationMovies extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     padding:  EdgeInsets.symmetric(horizontal: 16),
                     itemBuilder: (context, index){
-                      return MovieCard(movieEntity: state.movies[index]);
+                      return MovieCard(movieEntity: state.data[index]);
                     }, 
                     separatorBuilder: (context, index) =>const SizedBox(width: 10), 
-                    itemCount: state.movies.length,
+                    itemCount: state.data.length,
                     ),
                 ),
               ],
             );
           }
 
-          if (state is FailureLoadRecommendationMovies) {
+          if (state is FailureLoadData) {
             return Center(child: Text(state.errorMessage));
           }
 
