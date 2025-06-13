@@ -4,20 +4,55 @@ import 'package:movie_app/core/constants/api_url.dart';
 import 'package:movie_app/core/network/dio_client.dart';
 import 'package:movie_app/service_locator.dart';
 
-abstract class TVService{
+abstract class TVService {
   Future<Either> getPopularTV();
-
+  Future<Either> getRecommendationTVs(int tvId);
+  Future<Either> getSimilarTVs(int tvId);
+  Future<Either> getKeywords(int tvId);
 }
 
-class TVApiServiceImpl extends TVService{
+class TVApiServiceImpl extends TVService {
   @override
   Future<Either> getPopularTV() async {
-        try {
+    try {
+      var response = await sl<DioClient>().get(ApiUrl.popularTV);
+      return Right(response.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data['message']);
+    }
+  }
+
+  @override
+  Future<Either> getRecommendationTVs(int tvId) async {
+    try {
       var response = await sl<DioClient>().get(
-        ApiUrl.popularTV,
+        '${ApiUrl.tv}$tvId/recommendations',
       );
       return Right(response.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data['message']);
+    }
+  }
 
+  @override
+  Future<Either> getSimilarTVs(int tvId) async {
+    try {
+      var response = await sl<DioClient>().get(
+        '${ApiUrl.tv}$tvId/similar',
+      );
+      return Right(response.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data['message']);
+    }
+  }
+  
+  @override
+  Future<Either> getKeywords(int tvId)async {
+     try {
+      var response = await sl<DioClient>().get(
+        '${ApiUrl.tv}$tvId/keywords',
+      );
+      return Right(response.data);
     } on DioException catch (e) {
       return Left(e.response!.data['message']);
     }

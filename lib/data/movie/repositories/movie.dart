@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_app/common/helper/mapper/movie_mapper.dart';
-import 'package:movie_app/common/helper/mapper/trailer_mapper.dart';
+import 'package:movie_app/common/helper/mapper/movie.dart';
+import 'package:movie_app/common/helper/mapper/trailer.dart';
 import 'package:movie_app/core/models/trailer.dart';
 import 'package:movie_app/data/movie/models/movie.dart';
 import 'package:movie_app/data/movie/sources/movie.dart';

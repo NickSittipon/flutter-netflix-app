@@ -1,11 +1,8 @@
-import 'package:chewie/chewie.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/core/constants/api_url.dart';
 import 'package:movie_app/core/entity/trailer.dart';
 import 'package:movie_app/domain/movie/usecase/get_movie_trailer.dart';
 import 'package:movie_app/presentation/watch/bloc/trailer_state.dart';
 import 'package:movie_app/service_locator.dart';
-import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TrailerCubit extends Cubit<TrailerState> {
