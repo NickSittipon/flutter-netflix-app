@@ -7,7 +7,7 @@ import 'package:movie_app/presentation/splash/pages/splash.dart';
 import 'package:movie_app/service_locator.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();  
+  WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
   runApp(const MyApp());
 }
@@ -18,16 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-      )
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
     return BlocProvider(
       create: (context) => SplashCubit()..appStated(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.appTheme,
-        home: SplashPage()
+        home: SplashPage(),
       ),
     );
   }

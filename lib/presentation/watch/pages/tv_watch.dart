@@ -6,7 +6,7 @@ import 'package:movie_app/presentation/watch/widgets/similar_tvs.dart';
 import 'package:movie_app/presentation/watch/widgets/tv_keywords.dart';
 import 'package:movie_app/presentation/watch/widgets/video_overview.dart';
 import 'package:movie_app/presentation/watch/widgets/video_player.dart'
-show VideoPlayer;
+    show VideoPlayer;
 import 'package:movie_app/presentation/watch/widgets/video_title.dart';
 import 'package:movie_app/presentation/watch/widgets/video_vote_average.dart';
 

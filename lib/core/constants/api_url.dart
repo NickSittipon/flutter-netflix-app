@@ -1,8 +1,7 @@
 class ApiUrl {
-
-  static const baseURL = 'https://javascript-backend-netflix-production.up.railway.app/'; 
+  static const baseURL = 'https://javascript-backend-netflix-production.up.railway.app/';
   static const apiV = 'api/v1/';
-  
+
   static const signup = '${apiV}auth/signup';
   static const signin = '${apiV}auth/signin';
   static const trendingMovies = '${apiV}movie/trending';

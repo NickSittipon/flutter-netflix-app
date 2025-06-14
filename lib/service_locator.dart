@@ -24,35 +24,40 @@ import 'package:movie_app/domain/tv/usecases/get_recommendation_tvs.dart';
 import 'package:movie_app/domain/tv/usecases/get_similar_tvs.dart';
 import 'package:movie_app/domain/tv/usecases/search_tv.dart';
 
-final sl  = GetIt.instance;
+final sl = GetIt.instance;
 
 void setupServiceLocator() {
+  sl.registerSingleton<DioClient>(DioClient());
 
-    sl.registerSingleton<DioClient>(DioClient());
+  //Service
+  sl.registerSingleton<AuthService>(AuthApiServiceImpl());
+  sl.registerSingleton<MovieService>(MovieApiServiceImpl());
+  sl.registerSingleton<TVService>(TVApiServiceImpl());
 
-    //Service
-    sl.registerSingleton<AuthService>(AuthApiServiceImpl());
-    sl.registerSingleton<MovieService>(MovieApiServiceImpl());
-    sl.registerSingleton<TVService>(TVApiServiceImpl());
+  //Repositories
+  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
+  sl.registerSingleton<MovieRepository>(MovieRepositoryImpl());
+  sl.registerSingleton<TVRepository>(TVRepositoryImpl());
 
-    //Repositories
-    sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
-    sl.registerSingleton<MovieRepository>(MovieRepositoryImpl());
-    sl.registerSingleton<TVRepository>(TVRepositoryImpl());
-
-    //usecase
-    sl.registerSingleton<SignupUseCase>(SignupUseCase());
-    sl.registerSingleton<SigninUseCase>(SigninUseCase());
-    sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
-    sl.registerSingleton<GetTrendingsMoviesUseCase>(GetTrendingsMoviesUseCase());
-    sl.registerSingleton<GetNowPlayingMoviesUseCase>(GetNowPlayingMoviesUseCase());
-    sl.registerSingleton<GetPopularTvUseCase>(GetPopularTvUseCase());
-    sl.registerSingleton<GetMovieTrailerUseCase>(GetMovieTrailerUseCase());
-    sl.registerSingleton<GetRecommendationMoviesUseCase>(GetRecommendationMoviesUseCase());
-    sl.registerSingleton<GetSimilarMoviesUseCase>(GetSimilarMoviesUseCase());
-    sl.registerSingleton<GetSimilarTvsUseCase>(GetSimilarTvsUseCase());
-    sl.registerSingleton<GetRecommendationTvsUseCase>(GetRecommendationTvsUseCase());
-    sl.registerSingleton<GetTVKeywordsUseCase>(GetTVKeywordsUseCase());
-    sl.registerSingleton<SearchMovieUseCase>(SearchMovieUseCase());
-    sl.registerSingleton<SearchTVUseCase>(SearchTVUseCase());
+  //usecase
+  sl.registerSingleton<SignupUseCase>(SignupUseCase());
+  sl.registerSingleton<SigninUseCase>(SigninUseCase());
+  sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
+  sl.registerSingleton<GetTrendingsMoviesUseCase>(GetTrendingsMoviesUseCase());
+  sl.registerSingleton<GetNowPlayingMoviesUseCase>(
+    GetNowPlayingMoviesUseCase(),
+  );
+  sl.registerSingleton<GetPopularTvUseCase>(GetPopularTvUseCase());
+  sl.registerSingleton<GetMovieTrailerUseCase>(GetMovieTrailerUseCase());
+  sl.registerSingleton<GetRecommendationMoviesUseCase>(
+    GetRecommendationMoviesUseCase(),
+  );
+  sl.registerSingleton<GetSimilarMoviesUseCase>(GetSimilarMoviesUseCase());
+  sl.registerSingleton<GetSimilarTvsUseCase>(GetSimilarTvsUseCase());
+  sl.registerSingleton<GetRecommendationTvsUseCase>(
+    GetRecommendationTvsUseCase(),
+  );
+  sl.registerSingleton<GetTVKeywordsUseCase>(GetTVKeywordsUseCase());
+  sl.registerSingleton<SearchMovieUseCase>(SearchMovieUseCase());
+  sl.registerSingleton<SearchTVUseCase>(SearchTVUseCase());
 }

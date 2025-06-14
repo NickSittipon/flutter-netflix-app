@@ -25,10 +25,8 @@ jobs:
 
       - name: Format check (optional)
         run: dart format . --set-exit-if-changed
-        continue-on-error: true
 
       - name: Analyze project source (non-fatal)
-        run: flutter analyze || true
 
       # - name: Run tests
       #   run: flutter test
