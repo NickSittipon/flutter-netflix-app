@@ -13,7 +13,12 @@ class TVKeywords extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GenericDataCubit()..getData<List<KeywordEntity>>(sl<GetTVKeywordsUseCase>(),params: tvId),
+      create:
+          (context) =>
+              GenericDataCubit()..getData<List<KeywordEntity>>(
+                sl<GetTVKeywordsUseCase>(),
+                params: tvId,
+              ),
       child: BlocBuilder<GenericDataCubit, GenericDataState>(
         builder: (context, state) {
           if (state is DataLoading) {
@@ -24,9 +29,8 @@ class TVKeywords extends StatelessWidget {
             List<KeywordEntity> keyword = state.data;
             return Wrap(
               spacing: 5,
-              children: keyword.map((item) => Chip(
-                label: Text(item.name!),
-              )).toList(),
+              children:
+                  keyword.map((item) => Chip(label: Text(item.name!))).toList(),
             );
           }
 

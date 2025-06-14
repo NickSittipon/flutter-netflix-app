@@ -15,7 +15,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   flutter_bloc:
-  reactive_button: ^0.0.9
+  reactive_button: 
   dartz:
   dio:
   logger:

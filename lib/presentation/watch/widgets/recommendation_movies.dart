@@ -7,7 +7,6 @@ import 'package:movie_app/domain/movie/entities/movie.dart';
 import 'package:movie_app/domain/movie/usecase/get_recommendation_movies.dart';
 import 'package:movie_app/service_locator.dart';
 
-
 class RecommendationMovies extends StatelessWidget {
   final int movieId;
   const RecommendationMovies({super.key, required this.movieId});
@@ -15,7 +14,12 @@ class RecommendationMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GenericDataCubit()..getData<List<MovieEntity>>(sl<GetRecommendationMoviesUseCase>(),params: movieId),
+      create:
+          (context) =>
+              GenericDataCubit()..getData<List<MovieEntity>>(
+                sl<GetRecommendationMoviesUseCase>(),
+                params: movieId,
+              ),
       child: BlocBuilder<GenericDataCubit, GenericDataState>(
         builder: (context, state) {
           if (state is DataLoading) {
@@ -23,28 +27,26 @@ class RecommendationMovies extends StatelessWidget {
           }
 
           if (state is DataLoaded) {
-            return  Column(
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Recommendation',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 16),
                 SizedBox(
                   height: 300,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    padding:  EdgeInsets.symmetric(horizontal: 16),
-                    itemBuilder: (context, index){
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    itemBuilder: (context, index) {
                       return MovieCard(movieEntity: state.data[index]);
-                    }, 
-                    separatorBuilder: (context, index) =>const SizedBox(width: 10), 
+                    },
+                    separatorBuilder:
+                        (context, index) => const SizedBox(width: 10),
                     itemCount: state.data.length,
-                    ),
+                  ),
                 ),
               ],
             );

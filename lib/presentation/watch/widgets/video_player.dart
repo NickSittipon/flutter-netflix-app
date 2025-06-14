@@ -6,15 +6,15 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPlayer extends StatelessWidget {
   final int id;
-  const VideoPlayer({required this.id,super.key});
+  const VideoPlayer({required this.id, super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TrailerCubit()..getMovieTrailer(id),
-      child: BlocBuilder<TrailerCubit,TrailerState>(
+      child: BlocBuilder<TrailerCubit, TrailerState>(
         builder: (context, state) {
-          if (state is TrailerLoading){
+          if (state is TrailerLoading) {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is TrailerLoaded) {
@@ -28,7 +28,7 @@ class VideoPlayer extends StatelessWidget {
           }
           return Container();
         },
-      )
+      ),
     );
   }
 }

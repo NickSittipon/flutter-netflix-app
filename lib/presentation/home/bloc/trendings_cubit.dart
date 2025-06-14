@@ -6,20 +6,15 @@ import 'package:movie_app/service_locator.dart';
 class TrendingsCubit extends Cubit<TrendingsState> {
   TrendingsCubit() : super(TrendingMoviesLoading());
 
-
   void getTrendingMovies() async {
     var returnedData = await sl<GetTrendingsMoviesUseCase>().call();
     returnedData.fold(
-      (error){
-        emit(
-          FailureLoadTrendingMovies(errorMessage: error)
-        );
+      (error) {
+        emit(FailureLoadTrendingMovies(errorMessage: error));
       },
-      (data){
-        emit(
-          TrendingMoviesLoaded(movies: data)
-        );
-      }
+      (data) {
+        emit(TrendingMoviesLoaded(movies: data));
+      },
     );
   }
 }

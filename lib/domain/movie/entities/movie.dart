@@ -1,3 +1,4 @@
+import 'package:movie_app/core/config/assets/app_images.dart';
 
 class MovieEntity {
   MovieEntity({
@@ -18,20 +19,25 @@ class MovieEntity {
     required this.voteCount,
   });
 
-  final String ? backdropPath;
-  final int ? id;
-  final String ? title;
-  final String ? originalTitle;
-  final String ? overview;
-  final String ? posterPath;
-  final String ? mediaType;
-  final bool ? adult;
-  final String ? originalLanguage;
-  final List < int > genreIds;
-  final double ? popularity;
-  final DateTime ? releaseDate;
-  final bool ? video;
-  final double ? voteAverage;
-  final int ? voteCount;
+  final String? backdropPath;
+  final int? id;
+  final String? title;
+  final String? originalTitle;
+  final String? overview;
+  final String? posterPath;
+  final String? mediaType;
+  final bool? adult;
+  final String? originalLanguage;
+  final List<int> genreIds;
+  final double? popularity;
+  final DateTime? releaseDate;
+  final bool? video;
+  final double? voteAverage;
+  final int? voteCount;
 
+  String providePosterPath() {
+    return posterPath != null
+        ? AppImages.movieImageBasePath + posterPath!
+        : AppImages.defaultImage;
+  }
 }

@@ -5,14 +5,13 @@ import 'package:movie_app/presentation/splash/bloc/splash_state.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(DisplaySplash());
 
-  void appStated() async{
+  void appStated() async {
     await Future.delayed(Duration(seconds: 2));
-    var isLoggesIn = await isLoggedInUseCase().call();
-    if (isLoggesIn){
+    var isLoggedIn = await IsLoggedInUseCase().call();
+    if (isLoggedIn) {
       emit(Authenticated());
     } else {
-      emit(UnAuthenticated()
-      );
+      emit(UnAuthenticated());
     }
   }
 }

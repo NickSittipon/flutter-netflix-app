@@ -6,9 +6,8 @@ import 'package:movie_app/domain/auth/repositories/auth.dart';
 import 'package:movie_app/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthRepositoryImp extends AuthRepository{
-
-@override
+class AuthRepositoryImpl extends AuthRepository {
+  @override
   Future<Either> signup(SignupReqParams params) async {
     var data = await sl<AuthService>().signup(params);
     return data.fold(
@@ -16,14 +15,15 @@ class AuthRepositoryImp extends AuthRepository{
         return Left(error);
       },
       (data) async {
-        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-        sharedPreferences.setString('token',data['user']['token']);
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('token', data['user']['token']);
         return Right(data);
-      }
+      },
     );
   }
-  
-    @override
+
+  @override
   Future<Either> signin(SigninReqParams params) async {
     var data = await sl<AuthService>().signin(params);
     return data.fold(
@@ -31,16 +31,18 @@ class AuthRepositoryImp extends AuthRepository{
         return Left(error);
       },
       (data) async {
-        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-        sharedPreferences.setString('token',data['user']['token']);
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('token', data['user']['token']);
         return Right(data);
-      }
+      },
     );
   }
 
   @override
   Future<bool> isLoggedIn() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     if (token == null) {
       return false;
@@ -49,4 +51,3 @@ class AuthRepositoryImp extends AuthRepository{
     }
   }
 }
- 

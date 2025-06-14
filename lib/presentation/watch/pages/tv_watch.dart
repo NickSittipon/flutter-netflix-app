@@ -5,7 +5,8 @@ import 'package:movie_app/presentation/watch/widgets/recommendation_tvs.dart';
 import 'package:movie_app/presentation/watch/widgets/similar_tvs.dart';
 import 'package:movie_app/presentation/watch/widgets/tv_keywords.dart';
 import 'package:movie_app/presentation/watch/widgets/video_overview.dart';
-import 'package:movie_app/presentation/watch/widgets/video_player.dart' show VideoPlayer;
+import 'package:movie_app/presentation/watch/widgets/video_player.dart'
+show VideoPlayer;
 import 'package:movie_app/presentation/watch/widgets/video_title.dart';
 import 'package:movie_app/presentation/watch/widgets/video_vote_average.dart';
 
@@ -14,15 +15,10 @@ class TVWatchPage extends StatelessWidget {
 
   const TVWatchPage({super.key, required this.tvEntity});
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppbar(
-        hideBack: false,
-
-      ),
+      appBar: BasicAppbar(hideBack: false),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(

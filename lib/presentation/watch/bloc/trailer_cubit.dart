@@ -6,30 +6,24 @@ import 'package:movie_app/service_locator.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TrailerCubit extends Cubit<TrailerState> {
-  TrailerCubit() : super (TrailerLoading());
-
+  TrailerCubit() : super(TrailerLoading());
 
   void getMovieTrailer(int movieId) async {
-
-    var returnedData = await sl<GetMovieTrailerUseCase>().call(
-      params:movieId
-    );
+    var returnedData = await sl<GetMovieTrailerUseCase>().call(params: movieId);
 
     returnedData.fold(
       (error) {
-        emit(FailuerLoadTrailer(errorMessage: error ));
+        emit(FailuerLoadTrailer(errorMessage: error));
       },
-      (data) async{
+      (data) async {
         TrailerEntity trailerEntity = data;
         YoutubePlayerController controller = YoutubePlayerController(
           initialVideoId: trailerEntity.key!,
-          flags: const YoutubePlayerFlags(
-            autoPlay: false,
-          ),
+          flags: const YoutubePlayerFlags(autoPlay: false),
         );
-    
-        emit(TrailerLoaded(youtubePlayerController: controller ));
-      }
+
+        emit(TrailerLoaded(youtubePlayerController: controller));
+      },
     );
   }
 }

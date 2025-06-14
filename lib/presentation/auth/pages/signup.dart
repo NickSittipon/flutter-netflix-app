@@ -8,32 +8,36 @@ import 'package:movie_app/domain/auth/usecase/signup.dart';
 import 'package:movie_app/presentation/auth/pages/signin.dart';
 import 'package:movie_app/presentation/home/pages/home.dart';
 import 'package:movie_app/service_locator.dart';
-
 import 'package:reactive_button/reactive_button.dart';
 
-class SignupPage extends StatelessWidget {
-  SignupPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        minimum: EdgeInsets.only(top: 100, right: 16, left: 16),
+        minimum: const EdgeInsets.only(top: 100, right: 16, left: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _signupText(),
-            SizedBox(height: 30),
-            _emialField(),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
+            _emailField(),
+            const SizedBox(height: 20),
             _passwordField(),
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
             _signupButton(context),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _signinText(context),
           ],
         ),
@@ -42,13 +46,13 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _signupText() {
-    return Text(
+    return const Text(
       'Sign Up',
-      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
     );
   }
 
-  Widget _emialField() {
+  Widget _emailField() {
     return TextField(
       controller: _emailController,
       decoration: const InputDecoration(hintText: 'Email'),
@@ -58,26 +62,38 @@ class SignupPage extends StatelessWidget {
   Widget _passwordField() {
     return TextField(
       controller: _passwordController,
-      decoration: InputDecoration(hintText: 'Password'),
+      obscureText: _obscurePassword,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscurePassword ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscurePassword = !_obscurePassword;
+            });
+          },
+        ),
+      ),
     );
   }
 
   Widget _signupButton(BuildContext context) {
     return ReactiveButton(
-      title: 'Sign In',
+      title: 'Sign Up',
       activeColor: AppColors.primary,
-      onPressed: () async {
-        await sl<SignupUseCase>().call(
-          params: SignupReqParams(
-            email: _emailController.text,
-            password: _passwordController.text,
+      onPressed:
+          () async => sl<SignupUseCase>().call(
+            params: SignupReqParams(
+              email: _emailController.text,
+              password: _passwordController.text,
+            ),
           ),
-        );
-      },
       onSuccess: () {
         AppNavigator.pushAndRemove(context, const HomePage());
       },
-       onFailure: (error) {
+      onFailure: (error) {
         DisplayMessage.errorMessage(error, context);
       },
     );
@@ -87,14 +103,14 @@ class SignupPage extends StatelessWidget {
     return Text.rich(
       TextSpan(
         children: [
-          TextSpan(text: "Do have an account?"),
+          const TextSpan(text: "Do you have account?"),
           TextSpan(
             text: ' Sign In',
-            style: TextStyle(color: Colors.blue),
+            style: const TextStyle(color: Colors.blue),
             recognizer:
                 TapGestureRecognizer()
                   ..onTap = () {
-                    AppNavigator.push(context,  SigninPage());
+                    AppNavigator.push(context, SigninPage());
                   },
           ),
         ],
