@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/common/widgets/tv/tv_card.dart';
 import 'package:movie_app/domain/tv/entities/tv.dart';

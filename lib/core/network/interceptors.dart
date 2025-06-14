@@ -40,6 +40,10 @@ class LoggerInterceptor extends Interceptor {
 }
 
 class AuthorizationInterceptor extends Interceptor {
+  Logger logger = Logger(
+    printer: PrettyPrinter(methodCount: 0, colors: true, printEmojis: true),
+  );
+
   @override
   void onRequest(
     RequestOptions options,
@@ -51,11 +55,12 @@ class AuthorizationInterceptor extends Interceptor {
 
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = "Bearer $token";
-      print("Token used for Authorization: Bearer $token");
+      logger.i("Token used for Authorization: Bearer $token");
     } else {
-      print("No token found in SharedPreferences.");
+      logger.w("No token found in SharedPreferences.");
     }
 
     handler.next(options);
   }
 }
+
