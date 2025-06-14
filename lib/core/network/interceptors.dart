@@ -63,4 +63,3 @@ class AuthorizationInterceptor extends Interceptor {
     handler.next(options);
   }
 }
-
