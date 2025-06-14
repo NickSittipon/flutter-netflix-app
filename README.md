@@ -61,6 +61,18 @@ Follow these steps to run the Flutter app:
    Launch the application using:  
    `flutter run`
 
+## 🚀 You can get the APK file for testing by clicking here: [Download APK](https://github.com/NickSittipon/flutter-netflix-app-clean-architecture/actions/runs/15654283307)
+
+### How to download:
+
+1. Click the link above.  
+2. Scroll down to the **Artifacts** section.  
+3. Click the artifact name (`app-release-apk`)
+4. The APK file will download.  
+5. Install it on your Android device to test.
+
+
+
 
 
 https://github.com/user-attachments/assets/607af78e-6855-4821-b8d1-7e288ce7770c
